@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tofu-pkg-spiros", # Replace with your own username
+    name="tofu-pkg", 
     version="0.0.1",
     author="Spiros Denaxas",
     author_email="s.denaxas@ucl.ac.uk",

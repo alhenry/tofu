@@ -17,34 +17,32 @@ def jitter_type(x):
         raise argparse.ArgumentTypeError("Jitter value must be >0 and <100")
     return x
 
+def main(args):
+    parser = argparse.ArgumentParser(
+        description='Generate synthetic UK Biobank baseline data.')
 
-parser = argparse.ArgumentParser(
-    description='Generate synthetic UK Biobank baseline data.')
+    parser.add_argument('-f', '--field', type=int, nargs='*',
+                        help="specify one or more field ids to use")
 
-parser.add_argument('-f', '--field', type=int, nargs='*',
-                    help="specify one or more field ids to use")
+    parser.add_argument('-n', type=int, default=10,
+                        help="specify numbet of patients to generate")
 
-parser.add_argument('-n', type=int, default=10,
-                    help="specify numbet of patients to generate")
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help="be verbose")
 
-parser.add_argument('-v', '--verbose', action='store_true',
-                    help="be verbose")
+    parser.add_argument('-j', '--jitter', type=jitter_type, default=0,
+                        help="jitter percentage for missingness")
 
-parser.add_argument('-j', '--jitter', type=jitter_type, default=0,
-                    help="jitter percentage for missingness")
+    parser.add_argument('-o', '--out', type=str,
+                        default=helpers.gen_output_filename(),
+                        help="specify output file, defaults to timestamped file.")
 
-parser.add_argument('-o', '--out', type=str,
-                    default=helpers.gen_output_filename(),
-                    help="specify output file, defaults to timestamped file.")
+    args = parser.parse_args()
 
-args = parser.parse_args()
+    if args.verbose:
+        print(args)
 
-if args.verbose:
-    print(args)
-
-TOTAL_PATIENTS = args.n
-
-if __name__ == '__main__':
+    TOTAL_PATIENTS = args.n
 
     df_output = pd.DataFrame()
     df_output['eid'] = helpers.gen_fake_ids(TOTAL_PATIENTS)
@@ -102,3 +100,7 @@ if __name__ == '__main__':
                                         args.out,
                                         df_output.shape[0],
                                         df_output.shape[1]))
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv[1:])
