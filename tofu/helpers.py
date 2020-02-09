@@ -7,17 +7,23 @@ data.
 import numpy as np
 import pandas as pd
 import datetime
+from pathlib import Path
 
 MIN_DATE = pd.to_datetime('1910-01-01')
 MAX_DATE = pd.to_datetime('1990-12-31')
 
-FILE_FIELDS = "lookups/df_lkp_fields.tsv.gz"
-FILE_STATS = "lookups/df_showcase_desc_stats.csv.gz"
-FILE_ENCODINGS = "lookups/df_lkp_encodings.csv.gz"
+# with path.open() as f:
+#     test = list(csv.reader(f))
 
-DF_ENCODINGS = pd.read_csv(FILE_ENCODINGS, encoding='latin-1')
-DF_STATS = pd.read_csv(FILE_STATS)
-DF_FIELDS = pd.read_csv(FILE_FIELDS, sep="\t", encoding='latin-1')
+FILE_FIELDS = Path(__file__).parent / "./lookups/df_lkp_fields.tsv.gz"
+FILE_STATS = Path(__file__).parent / "./lookups/df_showcase_desc_stats.csv.gz"
+FILE_ENCODINGS = Path(__file__).parent / "./lookups/df_lkp_encodings.csv.gz"
+
+with FILE_ENCODINGS.open() as f:
+    DF_ENCODINGS = pd.read_csv(f, encoding='latin-1')
+
+DF_STATS = pd.read_csv(FILE_STATS.open())
+DF_FIELDS = pd.read_csv(FILE_FIELDS.open(), sep="\t", encoding='latin-1')
 
 
 def get_field_ids() -> list:
