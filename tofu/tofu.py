@@ -8,7 +8,7 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 import argparse
-import helpers
+from . import helpers
 
 
 def jitter_type(x):
