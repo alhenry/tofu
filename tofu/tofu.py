@@ -37,7 +37,7 @@ def main(args):
                         default=helpers.gen_output_filename(),
                         help="specify output file, defaults to timestamped file.")
 
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     if args.verbose:
         print(args)
