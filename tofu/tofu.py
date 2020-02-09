@@ -10,7 +10,6 @@ import numpy as np
 import argparse
 from . import helpers
 
-
 def jitter_type(x):
     x = int(x)
     if x < 0 or x >= 100:
