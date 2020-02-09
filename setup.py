@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="tofu-pkg", 
+    name="tofu", 
     version="0.0.1",
     author="Spiros Denaxas",
     author_email="s.denaxas@ucl.ac.uk",
